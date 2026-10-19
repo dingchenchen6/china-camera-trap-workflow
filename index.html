@@ -4,22 +4,23 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>中国红外相机兽类群落研究工作流</title>
-<meta name="description" content="中国红外相机兽类群落相对丰度、稀有性与保护成效研究的工作流：背景、研究空缺、科学问题、技术路线、数据、方法、结果与局限。">
+<meta name="description" content="基于 931 篇中国红外相机文献的综合研究工作流：调查覆盖、物种检出率、采样完整度、群落完整性、相对丰度结构、驱动因素与保护成效评估。">
 <meta property="og:title" content="中国红外相机兽类群落研究工作流">
-<meta property="og:description" content="中国红外相机兽类群落相对丰度、稀有性与保护成效研究的工作流：背景、研究空缺、科学问题、技术路线、数据、方法、结果与局限。">
+<meta property="og:description" content="基于 931 篇中国红外相机文献的综合研究工作流：调查覆盖、物种检出率、采样完整度、群落完整性、相对丰度结构、驱动因素与保护成效评估。">
 <meta property="og:type" content="article">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
 <style>
-/* 布局:左侧固定目录 + 右侧阅读栏(约 68 字宽);手机宽度时目录变为顶部横向标签 */
+/* 布局:左侧固定目录 + 右侧阅读栏;九个分析部分按“数据 → 覆盖 → 检出 → 采样完整度 → 群落完整性 → 结构 → 驱动 → 保护 → 优先区”排列 */
 :root {
   --bg: #fafcfa; --surface: #eef3ef; --surface-2: #e2eae4; --ink: #1b2620; --muted: #56635b; --rule: #cfd9d2;
   --forest: #1f3d2b; --forest-ink: #ffffff; --moss: #4f7a5a; --amber: #b8690f; --threat: #b23a2b; --link: #2b6a99;
   --f-display: "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
   --f-body: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   --f-mono: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
-  --step-0: 1rem; --step-1: 1.2rem; --step-2: 1.5rem; --step-3: 2rem; --step-4: 2.2rem;
+  --step-1: 1.2rem; --step-2: 1.5rem; --step-3: 1.9rem; --step-4: 2.2rem;
+  color-scheme: light;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #0f1612; --surface: #17211b; --surface-2: #203027; --ink: #e2eae4; --muted: #9aa99f; --rule: #2c3b32;
@@ -30,159 +31,173 @@
 
 * { box-sizing: border-box; }
 img { max-width: 100%; height: auto; }
-body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.75; margin: 0; }
-.wrap { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 48px; max-width: 1180px; margin: 0 auto;
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.78; margin: 0; }
+.wrap { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 48px; max-width: 1200px; margin: 0 auto;
   padding-block: 40px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-nav.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); align-self: start; font-size: 0.88rem; }
-nav.toc p { font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
-nav.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
-nav.toc a { display: block; padding: 4px 10px; border-radius: 6px; color: var(--muted); text-decoration: none; }
+nav.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 20px); align-self: start; font-size: 0.86rem; max-height: calc(100vh - 40px); overflow-y: auto; }
+nav.toc p { font-family: var(--f-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 12px 0 6px; }
+nav.toc p:first-child { margin-top: 0; }
+nav.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
+nav.toc a { display: block; padding: 3px 10px; border-radius: 6px; color: var(--muted); text-decoration: none; }
 nav.toc a:hover, nav.toc a.on { background: var(--surface); color: var(--forest); }
-nav.toc a:focus-visible, a:focus-visible, button:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
 main { min-width: 0; }
-section { padding-block: 28px; border-top: 1px solid var(--rule); scroll-margin-top: 16px; }
+section { padding-block: 30px; border-top: 1px solid var(--rule); scroll-margin-top: 16px; }
 section:first-of-type { border-top: 0; padding-top: 0; }
-.eyebrow { font-family: var(--f-mono); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--moss); margin: 0 0 6px; }
-h1, h2, h3 { font-family: var(--f-display); color: var(--forest); text-wrap: balance; line-height: 1.3; margin: 0 0 12px; }
+.part { border-top: 2px solid var(--forest); }
+.eyebrow { font-family: var(--f-mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--moss); margin: 0 0 6px; }
+h1, h2, h3 { font-family: var(--f-display); color: var(--forest); text-wrap: balance; line-height: 1.32; margin: 0 0 12px; }
 h1 { font-size: var(--step-4); }
 h2 { font-size: var(--step-3); }
-h3 { font-size: var(--step-1); margin-top: 22px; }
-p { margin: 0 0 12px; max-width: 68ch; }
+h3 { font-size: var(--step-1); margin-top: 24px; }
+p { margin: 0 0 12px; max-width: 70ch; }
 a { color: var(--link); text-underline-offset: 2px; }
-.en { font-size: var(--step-1); color: var(--muted); font-style: italic; max-width: 60ch; margin-bottom: 20px; }
-.lede { font-size: 1.08rem; }
+.en { font-size: var(--step-1); color: var(--muted); font-style: italic; max-width: 62ch; margin-bottom: 18px; }
+.lede { font-size: 1.06rem; }
+.q { font-weight: 500; color: var(--forest); }
 .thesis { background: var(--forest); color: var(--forest-ink); border-radius: 10px; padding: 18px 22px; margin: 18px 0; max-width: none; }
-.thesis b { color: var(--forest-ink); }
 .hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 32px; align-items: center; }
-.hero img { width: 100%; border-radius: 8px; border: 1px solid var(--rule); background: #fff; }
-.hero figcaption, figure figcaption { font-size: 0.82rem; color: var(--muted); margin-top: 6px; }
-figure { margin: 0; }
-.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; margin-top: 18px; }
+.hero img, figure img { width: 100%; border-radius: 8px; border: 1px solid var(--rule); background: #fff; }
+figure { margin: 16px 0 22px; }
+figcaption { font-size: 0.84rem; color: var(--muted); margin-top: 6px; max-width: 80ch; }
+figcaption b { color: var(--ink); }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-top: 18px; }
 .stat b { display: block; font-family: var(--f-mono); font-size: var(--step-2); font-weight: 600; color: var(--forest); font-variant-numeric: tabular-nums; line-height: 1.2; }
 .stat span { font-size: 0.82rem; color: var(--muted); }
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 12px 0; }
 .card { background: var(--surface); border-radius: 10px; padding: 16px 18px; min-width: 0; }
-.card h4 { font-family: var(--f-body); font-size: 1.02rem; color: var(--forest); margin: 0 0 6px; display: flex; gap: 10px; align-items: center; }
-.card p { font-size: 0.94rem; margin-bottom: 6px; }
-.tag { font-family: var(--f-mono); font-size: 0.78rem; font-weight: 600; background: var(--forest); color: var(--forest-ink); border-radius: 999px; padding: 1px 9px; flex: none; }
-.tag.amber { background: var(--amber); color: var(--bg); }
-.kv { font-size: 0.92rem; margin: 4px 0; }
-.kv b { color: var(--moss); margin-right: 6px; }
-.kv b.warn { color: var(--threat); }
-.cite { font-size: 0.85em; color: var(--muted); }
+.card h4 { font-family: var(--f-body); font-size: 1rem; color: var(--forest); margin: 0 0 6px; display: flex; gap: 10px; align-items: center; }
+.card p { font-size: 0.93rem; margin-bottom: 6px; }
+.tag { font-family: var(--f-mono); font-size: 0.76rem; font-weight: 600; background: var(--forest); color: var(--forest-ink); border-radius: 999px; padding: 1px 9px; flex: none; }
+.findings { display: grid; gap: 10px; margin: 14px 0; padding: 0; list-style: none; max-width: 76ch; }
+.findings li { background: var(--surface); border-radius: 8px; padding: 10px 14px; font-size: 0.95rem; }
+.findings li b { color: var(--forest); }
+.cite { font-size: 0.86em; color: var(--muted); }
 .scroll { overflow-x: auto; margin: 12px 0; }
-table { border-collapse: collapse; width: 100%; font-size: 0.92rem; min-width: 560px; }
+table { border-collapse: collapse; width: 100%; font-size: 0.91rem; min-width: 560px; }
 th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--rule); }
-th { font-family: var(--f-mono); font-size: 0.76rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
-td:first-child { color: var(--forest); font-weight: 500; white-space: nowrap; }
-.funnel { display: grid; gap: 8px; margin: 16px 0; }
-.frow { display: grid; grid-template-columns: minmax(0, 15em) minmax(0, 1fr); gap: 12px; align-items: center; font-size: 0.9rem; }
-.fbar { background: var(--surface); border-radius: 4px; height: 26px; position: relative; }
-.fbar i { display: block; height: 100%; border-radius: 4px; background: var(--moss); }
-.fbar i.last { background: var(--forest); }
-.fbar em { position: absolute; right: 8px; top: 0; line-height: 26px; font-style: normal; font-family: var(--f-mono); font-size: 0.82rem; color: var(--ink); }
-.formula { font-family: var(--f-mono); font-size: 1.25rem; background: var(--surface-2); border-radius: 8px; padding: 14px 18px; display: inline-block; margin: 6px 0 12px; }
-.diagram { background: var(--surface); border-radius: 10px; padding: 14px; overflow-x: auto; }
-.diagram svg { display: block; width: 100%; min-width: 620px; height: auto; }
+th { font-family: var(--f-mono); font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+td:first-child { color: var(--forest); font-weight: 500; }
+.diagram { background: var(--surface); border-radius: 10px; padding: 14px; overflow-x: auto; margin: 14px 0; }
+.diagram svg { display: block; width: 100%; min-width: 680px; height: auto; }
 svg .n { fill: var(--bg); stroke: var(--rule); stroke-width: 1.2; }
 svg .nd { fill: var(--forest); }
 svg .na { fill: var(--amber); }
-svg .ng { fill: var(--surface-2); stroke: var(--rule); }
 svg .t { fill: var(--ink); font-family: var(--f-body); font-size: 14px; font-weight: 700; }
 svg .s { fill: var(--muted); font-family: var(--f-body); font-size: 12px; }
 svg .tw { fill: var(--forest-ink); font-family: var(--f-body); font-size: 14px; font-weight: 700; }
 svg .sw { fill: var(--forest-ink); font-family: var(--f-body); font-size: 12px; }
 svg .ln { stroke: var(--moss); stroke-width: 1.6; fill: none; }
-svg .la { stroke: var(--amber); stroke-width: 2; fill: none; }
-svg .lm { stroke: var(--muted); stroke-width: 1.4; fill: none; }
-svg .ld { stroke: var(--forest); stroke-width: 2; fill: none; stroke-dasharray: 6 5; }
-svg .mk-g { fill: var(--moss); } svg .mk-a { fill: var(--amber); } svg .mk-m { fill: var(--muted); } svg .mk-f { fill: var(--forest); }
-.result { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 24px; margin: 18px 0 30px; align-items: start; }
-.result img { width: 100%; border: 1px solid var(--rule); border-radius: 8px; background: #fff; }
-.nums { display: grid; gap: 14px; }
-.num b { display: block; font-family: var(--f-mono); font-size: 1.7rem; font-weight: 600; color: var(--forest); line-height: 1.15; font-variant-numeric: tabular-nums; }
-.num b.hot { color: var(--threat); }
-.num span { font-size: 0.86rem; color: var(--muted); }
-ol.steps { padding-left: 1.3em; display: grid; gap: 8px; max-width: 68ch; }
-ul.plain { padding-left: 1.2em; max-width: 68ch; }
+svg .mk-g { fill: var(--moss); }
+.formula { font-family: var(--f-mono); font-size: 1.05rem; background: var(--surface-2); border-radius: 8px; padding: 10px 16px; display: inline-block; margin: 4px 0 12px; }
+ol.steps { padding-left: 1.3em; display: grid; gap: 8px; max-width: 72ch; }
+ul.plain { padding-left: 1.2em; max-width: 72ch; }
 ul.plain li { margin-bottom: 6px; }
-pre.code { background: var(--surface-2); border-radius: 8px; padding: 14px 16px; font-family: var(--f-mono); font-size: 0.84rem; overflow-x: auto; margin: 0; white-space: pre; }
+pre.code { background: var(--surface-2); border-radius: 8px; padding: 14px 16px; font-family: var(--f-mono); font-size: 0.82rem; overflow-x: auto; margin: 0; white-space: pre; }
 .codebox { position: relative; margin: 12px 0; }
 .codebox button { position: absolute; top: 8px; right: 8px; font: 600 0.76rem var(--f-mono); background: var(--forest); color: var(--forest-ink); border: 0; border-radius: 6px; padding: 5px 10px; cursor: pointer; }
-ol.refs { font-size: 0.86rem; padding-left: 1.5em; display: grid; gap: 6px; }
+ol.refs { font-size: 0.85rem; padding-left: 1.5em; display: grid; gap: 6px; }
 ol.refs a { word-break: break-all; }
-footer { font-size: 0.82rem; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 18px; margin-top: 24px; }
 .note { font-size: 0.86rem; color: var(--muted); }
+footer { font-size: 0.82rem; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 18px; margin-top: 24px; }
 @media (max-width: 900px) {
   .wrap { grid-template-columns: minmax(0, 1fr); gap: 16px; padding-block: 16px 60px; }
-  nav.toc { position: static; overflow-x: auto; }
+  nav.toc { position: static; overflow-x: auto; max-height: none; }
   nav.toc p { display: none; }
-  nav.toc ol { display: flex; gap: 6px; white-space: nowrap; padding-bottom: 6px; }
+  nav.toc ol { display: flex; gap: 6px; white-space: nowrap; padding-bottom: 4px; }
   nav.toc a { background: var(--surface); }
-  .hero, .result { grid-template-columns: minmax(0, 1fr); }
-  h1 { font-size: 2rem; } h2 { font-size: 1.6rem; }
-  .frow { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  h1 { font-size: 1.9rem; } h2 { font-size: 1.5rem; }
 }
 @media (prefers-reduced-motion: no-preference) { nav.toc a { transition: background 0.15s, color 0.15s; } }
 </style>
-<style>img { max-width: 100%; } [hidden] { display: none !important; } :root { color-scheme: light; } @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme: dark; } }</style>
 </head>
 <body>
 <div class="wrap">
 <nav class="toc" aria-label="目录">
-  <p>Contents</p>
+  <p>研究设计</p>
   <ol>
     <li><a href="#top">研究定位</a></li>
     <li><a href="#background">1 研究背景</a></li>
     <li><a href="#gaps">2 研究空缺</a></li>
     <li><a href="#questions">3 科学问题</a></li>
-    <li><a href="#roadmap">4 技术路线</a></li>
-    <li><a href="#data">5 数据</a></li>
-    <li><a href="#methods">6 方法与分析</a></li>
-    <li><a href="#rigor">7 统计严谨性</a></li>
-    <li><a href="#results">8 主要结果</a></li>
-    <li><a href="#limits">9 局限</a></li>
-    <li><a href="#repro">10 可复现性</a></li>
-    <li><a href="#next">11 下一步</a></li>
+    <li><a href="#framework">4 研究框架</a></li>
+  </ol>
+  <p>分析与结果</p>
+  <ol>
+    <li><a href="#p1">Ⅰ 数据基础</a></li>
+    <li><a href="#p2">Ⅱ 调查覆盖</a></li>
+    <li><a href="#p3">Ⅲ 物种检出率</a></li>
+    <li><a href="#p4">Ⅳ 采样完整度</a></li>
+    <li><a href="#p5">Ⅴ 群落完整性</a></li>
+    <li><a href="#p6">Ⅵ 结构与稀有性</a></li>
+    <li><a href="#p7">Ⅶ 驱动因素</a></li>
+    <li><a href="#p8">Ⅷ 保护成效</a></li>
+    <li><a href="#p9">Ⅸ 监测优先区</a></li>
+  </ol>
+  <p>综合</p>
+  <ol>
+    <li><a href="#synthesis">综合认识</a></li>
+    <li><a href="#rigor">统计严谨性</a></li>
+    <li><a href="#limits">局限</a></li>
+    <li><a href="#repro">可复现性</a></li>
+    <li><a href="#next">下一步</a></li>
     <li><a href="#refs">参考文献</a></li>
   </ol>
 </nav>
 
 <main>
 <section id="top">
-  <p class="eyebrow">Research workflow · 22_relative_abundance · v1.0 · 2026-10-19</p>
+  <p class="eyebrow">Research workflow · v2.0 · 2026-10-19</p>
   <div class="hero">
     <div>
-      <h1>中国红外相机兽类群落的相对丰度结构、稀有性与保护成效</h1>
-      <p class="en">Human footprint, not protection status, filters large and threatened mammals from camera-trapped communities across China</p>
-      <p class="lede">本研究基于中国已发表的红外相机群落清查，只纳入物种组成和相对丰度都完整的站点，回答四个问题：群落由谁主导；哪种稀有性与受威胁相关；保护状态与人类足迹各自如何影响群落组成；哪些物种在人类压力梯度上受益或受损。</p>
+      <h1>中国红外相机兽类群落研究工作流</h1>
+      <p class="en">Detection, completeness, community structure and protection effectiveness of ground-dwelling mammals from China's camera-trap literature</p>
+      <p class="lede">本研究把中国已发表的红外相机文献整理成一个标准化的证据库，依次回答：调查投到了哪里，物种需要多少努力才能拍到，已有清查拍全了没有，期望的物种还剩多少，群落由谁主导，以及人类压力和保护地如何影响这些结果。</p>
     </div>
     <figure>
-      <img src="figs/map_sites.jpg" alt="158 个纳入站点在中国的分布，按保护状态着色，点的大小表示检出物种数" width="1400" height="1238">
-      <figcaption>158 个站点，按保护状态着色（保护地内、邻近、保护地外）</figcaption>
+      <img src="figs/map_sites.jpg" alt="158 个物种组成与丰度均完整的群落级站点在中国的分布，按保护状态着色" width="1400" height="1238">
+      <figcaption>相对丰度分析的 158 个群落级站点，按保护状态着色</figcaption>
     </figure>
   </div>
-  <p class="thesis"><b>核心发现　</b>调整选址差异后，保护状态本身与群落组成无关；人类足迹系统性地筛掉大型与受威胁物种，而且在保护地内同样如此。</p>
+  <p class="thesis">核心结论：中国相机调查对已拍到的物种基本拍全了，缺口主要来自期望物种本身的缺失，而缺失集中在食肉动物和大型、受威胁物种。保护状态本身没有改变这一格局；人类足迹在保护地内外同样筛掉大型物种。</p>
   <div class="stats">
-    <div class="stat"><b>158</b><span>群落级站点</span></div>
-    <div class="stat"><b>88</b><span>≥ 1 kg 地栖兽类</span></div>
-    <div class="stat"><b>1,799</b><span>站点 × 物种检出</span></div>
-    <div class="stat"><b>26</b><span>省份</span></div>
-    <div class="stat"><b>2010–2024</b><span>调查中年</span></div>
+    <div class="stat"><b>931</b><span>篇文献（2004–2026）</span></div>
+    <div class="stat"><b>993</b><span>种（兽 279 · 鸟 706）</span></div>
+    <div class="stat"><b>570</b><span>个可定位站点</span></div>
+    <div class="stat"><b>5,717</b><span>站点 × 期望物种组合</span></div>
+    <div class="stat"><b>158</b><span>相对丰度完整的站点</span></div>
   </div>
 </section>
 
 <section id="background">
   <p class="eyebrow">1 · Background</p>
   <h2>研究背景</h2>
-  <h3>兽类丧失是非随机的</h3>
-  <p>全球陆生脊椎动物正经历持续的种群衰退与局地消失，大型兽类首当其冲 <span class="cite">(Dirzo et al. 2014)</span>。大型兽类的高灭绝风险由内在性状与外在威胁共同驱动 <span class="cite">(Cardillo et al. 2005)</span>；大型食肉动物的衰退尤为普遍 <span class="cite">(Ripple et al. 2014)</span>。即使森林结构完整，大中型动物也可能在功能上消失，即“空林” <span class="cite">(Redford 1992)</span>。因此群落组成的变化可能先于物种丰富度的下降出现，需要同时考察“有多少”和“由谁主导”。</p>
-  <h3>常见与稀有</h3>
-  <p>局地丰度高的物种通常分布更广，即多度–占据关系 <span class="cite">(Brown 1984; Gaston et al. 2000)</span>。稀有性可以分解为分布范围、生境特化与局地种群大小几个维度 <span class="cite">(Rabinowitz 1981)</span>，分布范围与种群特征都是灭绝风险的重要预测变量 <span class="cite">(Purvis et al. 2000)</span>。</p>
-  <h3>保护地与人类压力</h3>
-  <p>人类足迹指数综合了建成区、农田、牧场、人口密度、夜间灯光、道路、铁路与可航行水道等压力 <span class="cite">(Venter et al. 2016)</span>，并已有逐年的全球数据集 <span class="cite">(Mu et al. 2022)</span>。全球约三分之一的保护地处于高强度人类压力之下 <span class="cite">(Jones et al. 2018)</span>，保护地在遏制压力方面的成效差异很大 <span class="cite">(Geldmann et al. 2019)</span>。中国保护地体系覆盖了大量重点物种，但存在空缺 <span class="cite">(Xu et al. 2017)</span>。基于红外相机的综合显示保护地有助于维持兽类多样性 <span class="cite">(Beaudrot et al. 2016; Chen et al. 2022)</span>。难点在于：保护地选址偏向“高且远”的地点，而人类足迹既可能是混杂变量，也可能是保护起作用的中介。</p>
-  <h3>红外相机文献作为数据源</h3>
-  <p>整合多项相机研究可以分析群落结构与占据格局 <span class="cite">(Ahumada et al. 2011; Rich et al. 2017)</span>。但 RAI 同时混有丰度与可检测性 <span class="cite">(Sollmann et al. 2013)</span>，并受调查设计影响 <span class="cite">(Kays et al. 2020)</span>。在本项目的文献库中，只有约 74% 的 RAI 能由报告的输入复算，还存在“每 1,000 相机日”被误标为“每 100 相机日”的整体缩放错误。</p>
+
+  <h3>1.1 兽类的丧失是有选择的</h3>
+  <p>全球陆生脊椎动物正在经历持续的种群衰退与局地消失，大型兽类首当其冲 <span class="cite">(Dirzo et al. 2014)</span>。狩猎显著降低了热带兽类和鸟类的种群密度 <span class="cite">(Benítez-López et al. 2017)</span>，大型兽类的高灭绝风险由内在性状和外在威胁共同驱动 <span class="cite">(Cardillo et al. 2005)</span>，大型食肉动物的衰退尤为普遍 <span class="cite">(Ripple et al. 2014)</span>。即使森林结构完整，大中型动物也可能在功能上消失，即“空林” <span class="cite">(Redford 1992)</span>。因此，衡量一个地区的兽类状况，不能只看物种名录，还要看期望出现的物种还剩多少、群落由谁主导。</p>
+
+  <h3>1.2 红外相机让全国尺度的综合成为可能</h3>
+  <p>红外相机已从单个保护地的调查工具发展为区域和全球监测网络 <span class="cite">(Ahumada et al. 2011; Steenweg et al. 2017)</span>，整合多项研究可以分析群落结构与占据格局 <span class="cite">(Rich et al. 2017)</span>。中国是相机调查增长最快的国家之一，近年已出现几项基于相机数据的全国性综合：</p>
+  <div class="grid">
+    <div class="card"><h4>蒋爱伍团队</h4>
+      <p>汇编 281 篇文献（2012–2022 年）、212 个站点、210 种兽类的相机数据集，发现保护地内的分类、功能和系统发育多样性都更高 <span class="cite">(Liu, Kang &amp; Jiang 2026)</span>；并基于保护地相机数据指出，顶级捕食者的丧失伴随营养级降级 <span class="cite">(Liu et al. 2025)</span>。</p></div>
+    <div class="card"><h4>何杰坤团队</h4>
+      <p>在 85 个保护地（约 24 万 km²）比较历史调查与相机记录，发现食肉动物在保护地内普遍发生分布区收缩 <span class="cite">(He et al. 2026)</span>；并用地栖兽类和鸟类的数据检验丰度中心格局，发现物种性状调节这一格局 <span class="cite">(Zhang et al. 2026)</span>。</p></div>
+    <div class="card"><h4>江建平等的红色名录</h4>
+      <p>蒋志刚、江建平、王跃招等完成的《中国脊椎动物红色名录》系统评估了中国脊椎动物的受威胁等级 <span class="cite">(蒋志刚等 2016; Jiang 2015)</span>。本研究中的“受威胁”（CR、EN、VU）以中国红色名录为准，国内评估普遍严于全球评估。</p></div>
+  </div>
+  <p>此外，基于 199 个保护地的多维暗多样性分析也表明，中国保护地网络中的物种丧失是非随机的 <span class="cite">(Zhu et al. 2026，预印本)</span>。这些研究以保护地或站点为单元，回答了“缺了谁”，但大多没有区分一个物种没有被拍到，是因为它真的不在，还是因为调查努力不足以拍到它。</p>
+
+  <h3>1.3 “没拍到”有三种可能</h3>
+  <p>暗多样性框架把一个地点“适宜但缺失”的物种作为可度量的量 <span class="cite">(Pärtel et al. 2011)</span>，全球植物研究显示人类足迹显著降低群落完整性 <span class="cite">(Pärtel et al. 2025)</span>。对红外相机而言，一个期望物种没被记录，可能是局地消失，也可能是努力不足，还可能是分布图本身画大了。相机检出率随物种密度、活动和行为差异很大，所需努力可相差几个数量级 <span class="cite">(Kays et al. 2020)</span>；只有单次清查时，区分“占据”与“检出”还需要额外的假设 <span class="cite">(Lele et al. 2012)</span>。不把这三种可能分开，就会把调查不足误读为物种丧失。</p>
+
+  <h3>1.4 常见与稀有</h3>
+  <p>局地丰度高的物种通常分布更广，即多度–占据关系 <span class="cite">(Brown 1984; Gaston et al. 2000)</span>。稀有性可以分解为分布范围、生境特化与局地种群大小 <span class="cite">(Rabinowitz 1981)</span>，分布范围与种群特征都是灭绝风险的重要预测变量 <span class="cite">(Purvis et al. 2000)</span>。相机记录的相对丰度提供了在全国尺度检验这些关系的机会，但相对丰度指数同时混有丰度和可检测性 <span class="cite">(Sollmann et al. 2013)</span>。</p>
+
+  <h3>1.5 保护地与人类压力</h3>
+  <p>人类足迹指数综合了建成区、农田、牧场、人口密度、夜间灯光、道路、铁路和可航行水道等压力 <span class="cite">(Venter et al. 2016)</span>，并已有逐年的全球数据 <span class="cite">(Mu et al. 2022)</span>。全球约三分之一的保护地承受高强度人类压力 <span class="cite">(Jones et al. 2018)</span>，保护地遏制压力的成效差异很大 <span class="cite">(Geldmann et al. 2019)</span>。中国保护地覆盖了大量重点物种，但存在保护空缺 <span class="cite">(Xu et al. 2017)</span>；全球相机综合显示保护地有助于维持兽类多样性 <span class="cite">(Beaudrot et al. 2016; Chen et al. 2022)</span>。评估难点在于保护地选址偏向“高且远”的地点，而人类足迹既可能是混杂变量，也可能是保护起作用的途径。</p>
 </section>
 
 <section id="gaps">
@@ -191,299 +206,327 @@ footer { font-size: 0.82rem; color: var(--muted); border-top: 1px solid var(--ru
   <div class="scroll"><table>
     <thead><tr><th>编号</th><th>已有研究的不足</th><th>本研究的切入点</th></tr></thead>
     <tbody>
-      <tr><td>G1</td><td>中国尺度综合多关注名录、丰富度与检出，缺少群落相对丰度结构</td><td>只纳入组成与丰度完整的群落级清查；站点内份额与 Hill 数</td></tr>
-      <tr><td>G2</td><td>RAI 跨研究不可比：定义不一、缩放错误、可检测性混杂</td><td>以站点内份额为基本量；站点随机截距吸收总量；跨物种比较用体重校正</td></tr>
-      <tr><td>G3</td><td>稀有性三个维度与受威胁的关系少有区域实证，占据率常未校正检出</td><td>分布面积 × 检出校正占据率 × 局地丰度；系统发育回归</td></tr>
-      <tr><td>G4</td><td>保护地评估多为内外二分，混杂选址，少检验能否缓冲人类压力</td><td>总效应与直接效应分开；中介路径；保护 × 足迹缓冲检验；空间随机场</td></tr>
-      <tr><td>G5</td><td>物种对人类压力的分化（赢家与输家）缺少性状基础的证据</td><td>障碍式物种模型与跨层交互；不含性状的模型避免循环论证</td></tr>
+      <tr><td>G1</td><td>文献数据分散，缺少覆盖中英文、经过清洗和标准化的全国证据库；相对丰度指数口径不一</td><td>931 篇文献的标准化数据库；评估文献完整性与 RAI 可复现性</td></tr>
+      <tr><td>G2</td><td>不清楚调查投到了哪里、哪些区域和保护地从未被调查</td><td>网格热点、按期望丰富度标准化的覆盖比、保护地监测覆盖</td></tr>
+      <tr><td>G3</td><td>不同物种需要多少努力才能拍到没有定量标准</td><td>物种特异检出模型（CD90）与检出–努力关系（努力弹性）</td></tr>
+      <tr><td>G4</td><td>“没拍到”没有区分为采样不足与群落缺失</td><td>省级累积与覆盖度、站点占据–检出模型，分别给出采样完整度和群落完整性</td></tr>
+      <tr><td>G5</td><td>缺失是否非随机、缺的是谁，缺少以检出为条件的全国证据</td><td>确认 / 沉默 / 未测三态分类；按营养级、体型、受威胁等级检验</td></tr>
+      <tr><td>G6</td><td>群落相对丰度结构与稀有性维度很少在全国尺度检验</td><td>只用组成与丰度完整的清查；站点内份额规避缩放误差；系统发育回归</td></tr>
+      <tr><td>G7</td><td>保护地评估多为内外二分，混杂选址，少检验能否缓冲人类压力</td><td>总效应与直接效应分开、中介与缓冲检验、空间随机场、物种层分化</td></tr>
     </tbody>
   </table></div>
-  <p class="note">空缺基于所引文献与项目文献库整理，投稿前须做系统检索确认。</p>
+  <p class="note">空缺基于所引文献与项目文献库整理，投稿前须系统检索确认。</p>
 </section>
 
 <section id="questions">
   <p class="eyebrow">3 · Questions</p>
-  <h2>科学问题、假设与可证伪预测</h2>
+  <h2>科学问题</h2>
+  <p>研究按“先看数据和调查本身，再看物种，最后看驱动和保护”的顺序设置六个问题，前一个问题的答案是后一个问题的前提。</p>
   <div class="grid">
-    <div class="card"><h4><span class="tag">Q1</span>群落由谁主导？</h4>
-      <p class="kv"><b>假设</b>少数耐受干扰的中小型有蹄类主导</p>
-      <p class="kv"><b>预测</b>有效物种数远低于检出数；优势种以偶蹄目为主</p>
-      <p class="kv"><b class="warn">推翻</b>有效物种数接近检出数，或优势种类群分散</p></div>
-    <div class="card"><h4><span class="tag">Q2</span>哪种稀有性与受威胁相关？</h4>
-      <p class="kv"><b>假设</b>多度–占据为正；受威胁与分布面积小、局地丰度低相关</p>
-      <p class="kv"><b>预测</b>分布面积与局地丰度的 OR &lt; 1；占据率无关</p>
-      <p class="kv"><b class="warn">推翻</b>三个维度的 OR 都与 1 无差别</p></div>
-    <div class="card"><h4><span class="tag">Q3</span>保护状态还是人类足迹？</h4>
-      <p class="kv"><b>假设</b>调整选址后，足迹而非保护状态降低受威胁与大型兽类份额</p>
-      <p class="kv"><b>预测</b>足迹效应经 Holm 校正显著；保护效应 CI 含 0</p>
-      <p class="kv"><b class="warn">推翻</b>保护效应调整后仍显著，或足迹效应消失</p></div>
-    <div class="card"><h4><span class="tag">Q4</span>谁是赢家与输家？</h4>
-      <p class="kv"><b>假设</b>足迹按体型过滤物种；保护状态不分选物种</p>
-      <p class="kv"><b>预测</b>足迹 × 体重 &lt; 0；保护的物种随机斜率方差 ≈ 0</p>
-      <p class="kv"><b class="warn">推翻</b>交互不显著，或物种斜率与体重无关</p></div>
+    <div class="card"><h4><span class="tag">Q1</span>调查投到了哪里？</h4><p>文献规模、空间分布、保护地监测覆盖，以及数据本身的可比性如何。</p></div>
+    <div class="card"><h4><span class="tag">Q2</span>物种多难拍到？</h4><p>每个物种需要多少相机日才有九成把握拍到；增加相机日能带来多少额外检出。</p></div>
+    <div class="card"><h4><span class="tag">Q3</span>已有调查拍全了吗？</h4><p>省级和站点的采样完整度：在的物种拍到了多少。</p></div>
+    <div class="card"><h4><span class="tag">Q4</span>期望物种还剩多少，缺的是谁？</h4><p>群落完整性，以及缺失是否集中在食肉动物、大型或受威胁物种。</p></div>
+    <div class="card"><h4><span class="tag">Q5</span>群落由谁主导？</h4><p>相对丰度结构、多度–占据关系，以及哪种稀有性与受威胁相关。</p></div>
+    <div class="card"><h4><span class="tag">Q6</span>什么在驱动，保护地有没有用？</h4><p>气候、人类足迹与保护状态的作用；保护地能否缓冲人类压力；哪些物种受益或受损。</p></div>
   </div>
 </section>
 
-<section id="roadmap">
-  <p class="eyebrow">4 · Workflow</p>
-  <h2>技术路线</h2>
-  <p>三类上游数据汇入数据构建，得到 158 个站点；之后分四个分析模块，各对应一张结果图。每一步都附带诊断、敏感性分析与多重比较校正。</p>
-  <div class="diagram" role="img" aria-label="技术路线图：文献数据库与站点证据库进入数据构建，再分出群落结构、稀有性、保护成效、物种层模型四个模块，分别得到图 A1 到 A4；占据模型的检出校正占据率进入稀有性模块">
-    <svg viewBox="0 0 960 430" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk-g" d="M0,0 L10,5 L0,10 z"/></marker>
-        <marker id="aa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk-a" d="M0,0 L10,5 L0,10 z"/></marker>
-      </defs>
-      <rect class="n" x="10" y="40" width="210" height="74" rx="8"/><text class="t" x="26" y="70">14 文献数据库</text><text class="s" x="26" y="94">931 篇 · 35,405 指标行</text>
-      <rect class="n" x="10" y="150" width="210" height="74" rx="8"/><text class="t" x="26" y="180">15 站点证据库</text><text class="s" x="26" y="204">协变量 · 25 km IUCN 期望池</text>
-      <rect class="n" x="10" y="300" width="210" height="74" rx="8"/><text class="t" x="26" y="330">21 占据–检出模型</text><text class="s" x="26" y="354">检出校正 ψ，用于 Q2</text>
-      <rect class="nd" x="280" y="120" width="210" height="120" rx="10"/><text class="tw" x="298" y="158">01 数据构建</text><text class="sw" x="298" y="184">群落级 · 组成完整 · 丰度完整</text><text class="tw" x="298" y="214">158 站点 · 88 种</text>
-      <path class="ln" d="M220,77 L276,150" marker-end="url(#ag)"/><path class="ln" d="M220,187 L276,187" marker-end="url(#ag)"/>
-      <g>
-        <rect class="n" x="570" y="20" width="260" height="70" rx="8"/><circle class="nd" cx="600" cy="55" r="17"/><text class="tw" x="588" y="60">Q1</text><text class="t" x="628" y="50">02 群落结构</text><text class="s" x="628" y="72">份额 · Hill 数 · 优势种</text>
-        <rect class="n" x="570" y="120" width="260" height="70" rx="8"/><circle class="nd" cx="600" cy="155" r="17"/><text class="tw" x="588" y="160">Q2</text><text class="t" x="628" y="150">02 稀有性</text><text class="s" x="628" y="172">多度–占据 · 三维稀有性 · ψ（21）</text>
-        <rect class="n" x="570" y="220" width="260" height="70" rx="8"/><circle class="nd" cx="600" cy="255" r="17"/><text class="tw" x="588" y="260">Q3</text><text class="t" x="628" y="250">03 保护成效</text><text class="s" x="628" y="272">总 / 直接效应 · 中介 · 缓冲</text>
-        <rect class="n" x="570" y="320" width="260" height="70" rx="8"/><circle class="nd" cx="600" cy="355" r="17"/><text class="tw" x="588" y="360">Q4</text><text class="t" x="628" y="350">04 物种层模型</text><text class="s" x="628" y="372">障碍式 · 跨层交互</text>
-      </g>
-      <path class="ln" d="M490,180 L566,58" marker-end="url(#ag)"/><path class="ln" d="M490,180 L566,155" marker-end="url(#ag)"/>
-      <path class="ln" d="M490,180 L566,252" marker-end="url(#ag)"/><path class="ln" d="M490,180 L566,350" marker-end="url(#ag)"/>
-      <g>
-        <circle class="na" cx="912" cy="55" r="24"/><text class="tw" x="899" y="60">A1</text>
-        <circle class="na" cx="912" cy="155" r="24"/><text class="tw" x="899" y="160">A2</text>
-        <circle class="na" cx="912" cy="255" r="24"/><text class="tw" x="899" y="260">A3</text>
-        <circle class="na" cx="912" cy="355" r="24"/><text class="tw" x="899" y="360">A4</text>
-      </g>
-      <path class="la" d="M832,55 L884,55" marker-end="url(#aa)"/><path class="la" d="M832,155 L884,155" marker-end="url(#aa)"/>
-      <path class="la" d="M832,255 L884,255" marker-end="url(#aa)"/><path class="la" d="M832,355 L884,355" marker-end="url(#aa)"/>
+<section id="framework">
+  <p class="eyebrow">4 · Framework</p>
+  <h2>研究框架与技术路线</h2>
+  <p>文献数据库是一切分析的起点；站点证据库在此基础上加入坐标、协变量和期望物种池；覆盖、检出、完整性、结构和保护五组分析依次展开，每组都以前一组为条件。</p>
+  <div class="diagram" role="img" aria-label="研究框架：文献数据库进入站点证据库与覆盖分析，再依次进行检出率、采样完整度与群落完整性、相对丰度结构、驱动与保护成效，最后给出监测优先区">
+    <svg viewBox="0 0 980 360" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk-g" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+      <rect class="nd" x="10" y="140" width="170" height="80" rx="10"/><text class="tw" x="24" y="172">Ⅰ 文献数据库</text><text class="sw" x="24" y="196">931 篇 · 993 种</text>
+      <rect class="n" x="220" y="40" width="190" height="74" rx="8"/><text class="t" x="234" y="70">Ⅱ 调查覆盖与空缺</text><text class="s" x="234" y="94">热点 · 覆盖比 · 保护地覆盖</text>
+      <rect class="n" x="220" y="246" width="190" height="74" rx="8"/><text class="t" x="234" y="276">站点证据库</text><text class="s" x="234" y="300">570 站点 · 25 km 期望池</text>
+      <rect class="n" x="450" y="246" width="190" height="74" rx="8"/><text class="t" x="464" y="276">Ⅲ 物种检出率</text><text class="s" x="464" y="300">CD90 · 努力弹性 γ</text>
+      <rect class="n" x="450" y="140" width="190" height="74" rx="8"/><text class="t" x="464" y="170">Ⅳ–Ⅴ 完整度</text><text class="s" x="464" y="194">采样完整度 · 群落完整性</text>
+      <rect class="n" x="450" y="40" width="190" height="74" rx="8"/><text class="t" x="464" y="70">Ⅵ 结构与稀有性</text><text class="s" x="464" y="94">158 站点相对丰度</text>
+      <rect class="n" x="690" y="90" width="170" height="74" rx="8"/><text class="t" x="704" y="120">Ⅶ 驱动因素</text><text class="s" x="704" y="144">气候 · 足迹 · 体型</text>
+      <rect class="n" x="690" y="196" width="170" height="74" rx="8"/><text class="t" x="704" y="226">Ⅷ 保护成效</text><text class="s" x="704" y="250">内外比较 · 缓冲</text>
+      <rect class="na" x="880" y="140" width="90" height="80" rx="10"/><text class="tw" x="894" y="174">Ⅸ 优先</text><text class="sw" x="894" y="198">监测区</text>
+      <path class="ln" d="M180,170 L216,80" marker-end="url(#ag)"/><path class="ln" d="M180,190 L216,280" marker-end="url(#ag)"/>
+      <path class="ln" d="M410,283 L446,283" marker-end="url(#ag)"/><path class="ln" d="M545,246 L545,218" marker-end="url(#ag)"/><path class="ln" d="M545,140 L545,118" marker-end="url(#ag)"/>
+      <path class="ln" d="M640,170 L686,130" marker-end="url(#ag)"/><path class="ln" d="M640,185 L686,228" marker-end="url(#ag)"/><path class="ln" d="M640,77 L686,115" marker-end="url(#ag)"/>
+      <path class="ln" d="M860,127 L876,165" marker-end="url(#ag)"/><path class="ln" d="M860,233 L876,195" marker-end="url(#ag)"/><path class="ln" d="M410,77 L876,150" marker-end="url(#ag)"/>
     </svg>
   </div>
-</section>
-
-<section id="data">
-  <p class="eyebrow">5 · Data</p>
-  <h2>数据与纳入</h2>
   <div class="scroll"><table>
-    <thead><tr><th>数据</th><th>内容与处理</th><th>来源</th></tr></thead>
+    <thead><tr><th>分析</th><th>对应模块</th><th>核心方法</th></tr></thead>
     <tbody>
-      <tr><td>相对丰度</td><td>兽类、到种、非分层的 RAI，统一为每 100 相机日；“占独立探测的百分比”另作一类</td><td>14 号文献库 rai_clean</td></tr>
-      <tr><td>物种名录</td><td>文献物种名录 ∪ 有 RAI 的物种，映射到 IUCN 名</td><td>COMBINE <span class="cite">(Soria et al. 2021)</span></td></tr>
-      <tr><td>期望物种池</td><td>IUCN 当代分布 25 km 内的 ≥ 1 kg 地栖可检出兽类；未检出者记 0</td><td>IUCN 兽类分布图；15 号证据库</td></tr>
-      <tr><td>站点协变量</td><td>保护状态（内 / 邻近 / 外）；海拔与人类足迹（5 km 均值）；年均温与年降水</td><td>WorldClim 2.1 <span class="cite">(Fick &amp; Hijmans 2017)</span>；Human Footprint <span class="cite">(Mu et al. 2022)</span></td></tr>
-      <tr><td>物种性状</td><td>成体体重；中国生物多样性红色名录（2020）等级；中国境内 IUCN 分布面积</td><td>COMBINE；<span class="cite">蒋志刚等 2016</span></td></tr>
-      <tr><td>系统发育</td><td>兽类 MCC 树</td><td><span class="cite">Upham et al. 2019</span></td></tr>
+      <tr><td>Ⅰ 数据基础</td><td>14_litdb_analysis</td><td>清洗与分类协调（8 条路线）；负二项增长模型；RAI 复算</td></tr>
+      <tr><td>Ⅱ 调查覆盖</td><td>16_coverage</td><td>捕获–再捕获估计文献完整性；Getis-Ord Gi* 热点；保护地最近距离</td></tr>
+      <tr><td>Ⅲ 物种检出率</td><td>15_evidence_db；21 占据模型</td><td>饱和检出模型 P = ψ(1 − e<sup>−λE</sup>)；层级贝叶斯占据–检出模型</td></tr>
+      <tr><td>Ⅳ 采样完整度</td><td>21_province_completeness；16_coverage</td><td>iNEXT 累积与样本覆盖度；Chao2；站点后验存在概率</td></tr>
+      <tr><td>Ⅴ 群落完整性</td><td>15_evidence_db；21</td><td>确认 / 沉默 / 未测三态；五维完整性；系统发育二项模型</td></tr>
+      <tr><td>Ⅵ 结构与稀有性</td><td>22_relative_abundance</td><td>站点内份额与 Hill 数；系统发育回归</td></tr>
+      <tr><td>Ⅶ–Ⅷ 驱动与保护</td><td>15；21；22</td><td>beta / 二项混合模型；熵平衡；空间随机场；障碍式物种模型</td></tr>
+      <tr><td>Ⅸ 监测优先区</td><td>16_coverage</td><td>期望丰富度 × 调查努力；四分量综合指数与权重敏感性</td></tr>
     </tbody>
   </table></div>
-  <h3>纳入流程（每步剩余站点数）</h3>
-  <div class="funnel">
-    <div class="frow"><span>有兽类 RAI 且有站点记录</span><div class="fbar"><i style="width:100%"></i><em>225</em></div></div>
-    <div class="frow"><span>调查单元可对齐</span><div class="fbar"><i style="width:99.1%"></i><em>223</em></div></div>
-    <div class="frow"><span>群落级清查</span><div class="fbar"><i style="width:88.4%"></i><em>199</em></div></div>
-    <div class="frow"><span>检出物种全部有丰度</span><div class="fbar"><i style="width:81.8%"></i><em>184</em></div></div>
-    <div class="frow"><span>≥ 4 种，食肉目与偶蹄目都出现</span><div class="fbar"><i style="width:72.9%"></i><em>164</em></div></div>
-    <div class="frow"><span>RAI 站点相机日 ≥ 500</span><div class="fbar"><i class="last" style="width:70.2%"></i><em>158</em></div></div>
-  </div>
-  <p>最终样本中，保护地内 113 个站点（多边形内 64 个，文中写明 49 个）、邻近 24 个、保护地外 21 个；丰度类型为相机日 RAI 137 个、探测百分比 21 个。</p>
 </section>
 
-<section id="methods">
-  <p class="eyebrow">6 · Methods</p>
-  <h2>方法与分析</h2>
-  <h3>6.1 基本量：站点内份额</h3>
-  <div class="formula">p<sub>ij</sub> = A<sub>ij</sub> / Σ<sub>j</sub> A<sub>ij</sub></div>
-  <p>A 为 RAI 或报告的探测百分比。同一站点内各物种共用同一定义，因此把 RAI 整体乘 10 不会改变份额：</p>
-  <div class="scroll"><table style="min-width:420px">
-    <thead><tr><th>物种</th><th>研究 A</th><th>误标 ×10</th><th>份额</th></tr></thead>
-    <tbody><tr><td>小麂</td><td>4.0</td><td>40</td><td>0.50</td></tr><tr><td>野猪</td><td>2.4</td><td>24</td><td>0.30</td></tr><tr><td>豹猫</td><td>1.6</td><td>16</td><td>0.20</td></tr></tbody>
-  </table></div>
-  <p class="note">示例数值仅作演示。检出但 RAI 四舍五入为 0 的 4 条记录，在对数尺度上取同站点最小正份额的一半。</p>
+<section id="p1" class="part">
+  <p class="eyebrow">Part Ⅰ · Data</p>
+  <h2>Ⅰ 数据基础：中国红外相机文献数据库</h2>
+  <p><span class="q">要回答的问题：</span>证据库有多大、分布在哪里、数据能否跨研究比较。</p>
+  <p>数据库收录 933 条文献，去重后 931 篇（中文 677、英文 254），来自 236 种期刊，发表于 2004–2026 年；含 1,221 个调查单元、35,404 条物种层指标记录。分类名经 8 条匹配路线协调，91.4% 解析到种，共 993 种（兽类 279、鸟类 706）。629 篇报告了相机日，合计约 2,500 万相机日。</p>
+  <ul class="findings">
+    <li><b>增长迅速。</b>2010–2025 年中文文献年均增长 25.3%，英文 28.2%，约每 3 年翻一番。</li>
+    <li><b>空间集中。</b>四川 122 篇、云南 95 篇，两省超过可定位清查的三分之一；山东、香港、台湾各不足 3 篇。</li>
+    <li><b>口径不一。</b>同名为 RAI 的指标至少在乘数（每 100 或每 1,000 相机日）、分母（相机日或探测总数）和独立性阈值三个维度上不同；30 分钟阈值占 89.6%。</li>
+    <li><b>可复现性有限。</b>8,711 个可复算的 RAI 中只有 74.0% 与报告值一致，45 篇中文文献的复现率低于 10%。这一点决定了后续相对丰度分析必须使用对缩放不敏感的站点内份额。</li>
+  </ul>
+  <figure><img src="figs/L1_growth.jpg" alt="文献年度产出、累积数量、期刊分布与发表时滞" loading="lazy" width="1800" height="1328"><figcaption><b>图 Ⅰ-1　文献产出与增长。</b>年度产出（2026 年截至 10 月）、累积数量、期刊分布及野外结束到发表的时滞。</figcaption></figure>
+  <figure><img src="figs/L2_spatial.jpg" alt="省级文献密度、调查单元落点与省级排名" loading="lazy" width="1800" height="1033"><figcaption><b>图 Ⅰ-2　文献的空间分布。</b>省级文献密度、调查单元落点、省级排名与记录物种数。</figcaption></figure>
+  <figure><img src="figs/L3_rai.jpg" alt="RAI 报告值与复算值比较、可复现率" loading="lazy" width="1800" height="1672"><figcaption><b>图 Ⅰ-3　RAI 的可复现性。</b>报告值与复算值、按乘数和分母分组的可复现率、文献层可复现率分布。</figcaption></figure>
+</section>
 
-  <h3>6.2 Q1 群落结构</h3>
-  <p>Hill 数 D0（检出物种数）、D1 = exp(−Σ p ln p)、D2 = 1 / Σ p² <span class="cite">(Hill 1973; Chao et al. 2014)</span>；Pielou 均匀度 J = ln D1 / ln D0；Berger–Parker 优势度 d = max p；各物种成为优势种的站点数；秩–丰度曲线取 ≥ 20 个站点共有的秩次。</p>
+<section id="p2" class="part">
+  <p class="eyebrow">Part Ⅱ · Coverage</p>
+  <h2>Ⅱ 调查覆盖与监测空缺</h2>
+  <p><span class="q">要回答的问题：</span>调查投到了哪里，哪些区域和保护地从未被调查。这决定了后面所有结论能推广到多大范围。</p>
+  <ul class="findings">
+    <li><b>文献完整性。</b>OpenAlex 与本库的两源捕获–再捕获估计，中国英文红外相机野外研究约 588 篇，本库收录 43%（39–46%）；中文期刊中《生物多样性》覆盖 57%。</li>
+    <li><b>投入高度集中。</b>100 km 网格中 127 格为调查努力热点，集中在横断山、秦岭—大巴山与东南丘陵。按期望物种丰富度标准化，干旱温带区覆盖比仅 0.32，青藏高原 0.46；内蒙古、新疆、西藏只有 0.18。干旱温带区的覆盖比由 2015 年前的 0.78 降到 2021 年后的 0.21，相对空缺在扩大。</li>
+    <li><b>保护地监测覆盖不均。</b>陆地类型保护地中，25 km 内没有已发表相机调查的比例，国家级 41%、省级 64%、县市级 82%；按面积加权，国家级只有 38% 有调查，最大的那批保护地多半无人调查。控制省份后，国家级被覆盖的几率是县市级的 6.1 倍（95% CI 3.1–12.0）。</li>
+  </ul>
+  <figure><img src="figs/C2_coverage.jpg" alt="省级文献密度、调查努力热点与分区覆盖比" loading="lazy" width="1800" height="1476"><figcaption><b>图 Ⅱ-1　调查努力的空间格局。</b>省级密度、100 km 网格 Gi* 热点与气候–海拔分区的覆盖比。</figcaption></figure>
+  <figure><img src="figs/C3_reserves.jpg" alt="保护地的相机调查覆盖" loading="lazy" width="1800" height="1653"><figcaption><b>图 Ⅱ-2　保护地的相机调查覆盖。</b>各级保护地到最近已发表调查站点的距离与覆盖比例。</figcaption></figure>
+</section>
 
-  <h3>6.3 Q2 稀有性的三个维度</h3>
-  <div class="grid">
-    <div class="card"><h4>分布面积</h4><p>中国境内 IUCN 分布面积，取 log10</p></div>
-    <div class="card"><h4>分布区内占据率</h4><p>21 号占据–检出模型的物种层检出校正 ψ，取 logit</p></div>
-    <div class="card"><h4>局地丰度</h4><p>log 份额混合模型的物种随机效应，校正站点与 log10 体重</p></div>
-  </div>
-  <p>60 种（检出于 ≥ 3 个站点且在系统发育树中，受威胁 35 种）。多度–占据用 phylolm（Pagel λ）；受威胁 ~ 三维稀有性 + 体重用 phyloglm（1,000 次 bootstrap） <span class="cite">(Ives &amp; Garland 2010)</span>，并以非系统发育 logistic 回归对照。</p>
+<section id="p3" class="part">
+  <p class="eyebrow">Part Ⅲ · Detection</p>
+  <h2>Ⅲ 物种检出率评估</h2>
+  <p><span class="q">要回答的问题：</span>一个物种在场时需要多少相机日才能拍到。只有知道这一点，才能判断“没拍到”到底意味着什么。</p>
+  <h3>物种特异的检出标准（CD90）</h3>
+  <p>对池内站点充足的 51 种兽类，拟合饱和检出模型，估计物种在场时 90% 概率被拍到所需的相机日（CD90）：</p>
+  <div class="formula">P(记录) = ψ · (1 − e<sup>−λE</sup>)　　CD90 = −ln(0.1) / λ</div>
+  <ul class="findings">
+    <li><b>相差四个数量级。</b>CD90 中位 2,758 相机日（IQR 476–7,641）。野猪、狼和麂类不到 100 相机日；中华穿山甲和荒漠猫超过 30,000。</li>
+    <li><b>典型清查够测常见种，不够测稀有猫科。</b>中位清查约 12,000 相机日，足以检验多数有蹄类和常见中型食肉动物，但对稀有猫科、穿山甲和兔狲，不到一半的池内站点达到充分努力。</li>
+  </ul>
+  <h3>努力与检出的关系</h3>
+  <p>站点层的层级贝叶斯占据–检出模型（自写 Stan，244 个站点 × 97 种）进一步估计了检出随相机日增长的速度。数据明确拒绝“检出与相机日成正比”的假设：努力弹性 γ = 0.13 [0.06, 0.19]，即相机日增加 10 倍，期望检出只增加约 1.35 倍（LOO 优势 107.5，SE 17.6）。在同一片区域延长布设，收益有限；扩大空间范围和更换生境更重要。</p>
+  <figure><img src="figs/E6_adequacy.jpg" alt="51 种兽类的 CD90、占据率与检出率、池内站点结果" loading="lazy" width="1532" height="1800"><figcaption><b>图 Ⅲ-1　物种特异的调查充分性。</b>CD90 及 95% bootstrap 区间；占据率 ψ 与检出率 λ；各物种池内站点的确认、沉默与未测比例。</figcaption></figure>
+</section>
 
-  <h3>6.4 Q3 保护地与人类足迹</h3>
-  <div class="diagram" role="img" aria-label="因果图：选址混杂同时影响保护状态、人类足迹与群落组成；保护状态经人类足迹影响群落组成（中介），也可能直接影响群落组成">
-    <svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <marker id="ma" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk-a" d="M0,0 L10,5 L0,10 z"/></marker>
-        <marker id="mf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk-f" d="M0,0 L10,5 L0,10 z"/></marker>
-        <marker id="mm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk-m" d="M0,0 L10,5 L0,10 z"/></marker>
-      </defs>
-      <rect class="nd" x="20" y="130" width="150" height="56" rx="28"/><text class="tw" x="67" y="164">保护状态</text>
-      <rect class="na" x="275" y="20" width="150" height="56" rx="28"/><text class="tw" x="322" y="54">人类足迹</text>
-      <rect class="nd" x="530" y="130" width="150" height="56" rx="28"/><text class="tw" x="577" y="164">群落组成</text>
-      <rect class="ng" x="245" y="248" width="210" height="56" rx="28"/><text class="t" x="290" y="282">选址混杂</text>
-      <path class="la" d="M150,130 L285,74" marker-end="url(#ma)"/><text class="s" x="168" y="92">① 保护是否降低足迹</text>
-      <path class="la" d="M415,74 L550,130" marker-end="url(#ma)"/><text class="s" x="470" y="92">足迹的效应</text>
-      <path class="ld" d="M172,158 L526,158" marker-end="url(#mf)"/><text class="s" x="300" y="148">直接效应（调整足迹后）</text>
-      <path class="lm" d="M265,262 L140,190" marker-end="url(#mm)"/><path class="lm" d="M435,262 L560,190" marker-end="url(#mm)"/><path class="lm" d="M350,246 L350,80" marker-end="url(#mm)"/>
-      <text class="s" x="470" y="300">海拔 · 气候 · 努力 · 年份 · 丰度类型</text>
-    </svg>
-  </div>
-  <p>响应变量为受威胁种份额、≥ 15 kg 兽类份额、按探测加权的平均 log10 体重、Pielou 均匀度与 Berger–Parker 优势度。份额用 beta 回归（Smithson–Verkuilen 压缩），体重用高斯模型，均含省份随机截距（glmmTMB）；五个响应做 Holm 校正。</p>
-  <div class="grid">
-    <div class="card"><h4><span class="tag">1</span>总效应</h4><p>不调整人类足迹</p></div>
-    <div class="card"><h4><span class="tag">2</span>直接效应</h4><p>调整 log(1 + 足迹)</p></div>
-    <div class="card"><h4><span class="tag">3</span>中介</h4><p>足迹 ~ 保护 + 协变量</p></div>
-    <div class="card"><h4><span class="tag">4</span>缓冲</h4><p>保护 × 足迹交互，分别给出内外斜率</p></div>
-    <div class="card"><h4><span class="tag">5</span>稳健性</h4><p>熵平衡 <span class="cite">(Hainmueller 2012)</span>、指数空间随机场、严格保护定义</p></div>
-  </div>
+<section id="p4" class="part">
+  <p class="eyebrow">Part Ⅳ · Sampling completeness</p>
+  <h2>Ⅳ 采样完整度评估</h2>
+  <p><span class="q">要回答的问题：</span>已在场的物种拍到了多少。采样完整度只回答“拍全了没有”，不涉及期望物种是否还在。</p>
+  <h3>省级：相机日、物种累积与样本覆盖度</h3>
+  <ul class="findings">
+    <li><b>兽类：已检出的群落基本拍全。</b>323 篇群落清查，20 个省有 ≥ 5 篇；最终样本覆盖度中位 0.98（0.79–1.00）；18 个省达到 Ĉ = 0.90，所需相机日中位 112,924。</li>
+    <li><b>覆盖度高不等于完整度高。</b>统一到 Ĉ = 0.90 时，完整度中位只有 62%。相机日每增加 10 倍，完整度的几率比为 3.10（1.91–5.03）。</li>
+    <li><b>鸟类远未饱和。</b>地栖鸟类最终覆盖度中位 0.87，只有 5 个省达到 0.90；完整度达 50% 约需 35 万相机日，是兽类的 10 倍以上。</li>
+    <li><b>区域编目完整度。</b>Chao2 估计的兽类编目完整度在西北、西南约 82%–83%，华南、华中约 52%；东北鸟类仅 34%。</li>
+  </ul>
+  <figure><img src="figs/P1_accum.jpg" alt="省级相机日–物种累积曲线、样本覆盖度与完整度" loading="lazy" width="1800" height="1259"><figcaption><b>图 Ⅳ-1　省级相机日、物种累积与样本覆盖度（兽类）。</b>累积曲线为 200 次随机排序的均值；完整度随相机日的拟合为准二项 GLM。</figcaption></figure>
+  <figure><img src="figs/C4_inventory.jpg" alt="兽类与鸟类编目的稀疏化与外推、区域完整度" loading="lazy" width="1800" height="1377"><figcaption><b>图 Ⅳ-2　兽类与鸟类的编目完整度。</b>发生率型稀疏化与外推，及区域、省份与保护地的 Chao2 完整度。</figcaption></figure>
+  <h3>站点与省级：占据模型给出的采样完整度</h3>
+  <p>占据–检出模型对每个未检出的站点 × 物种组合给出“在场但漏拍”的后验概率，从而把采样完整度（检出 / 估计在场）落到站点：站点中位 0.69（IQR 0.57–0.80），省级中位 0.86。站点采样完整度随相机日上升（ρ = 0.31，p &lt; 0.001），符合采样完整度应当依赖努力的预期。按努力分层的后验预测检验中，五个努力层的观测检出率都落在 95% 预测区间内。</p>
+  <figure><img src="figs/P8_site.jpg" alt="站点层采样完整度与群落完整性" loading="lazy" width="1464" height="1800"><figcaption><b>图 Ⅳ-3　站点层的采样完整度与群落完整性。</b>后验预测检验、物种检出曲线、站点地图、两类完整度与相机日的关系及站点分解。</figcaption></figure>
+</section>
 
-  <h3>6.5 Q4 物种层障碍式模型</h3>
-  <div class="grid">
-    <div class="card"><h4>出现部分</h4><p>期望池物种是否检出；二项 GLMM；3,483 行</p></div>
-    <div class="card"><h4>相对丰度部分</h4><p>检出物种的 log 份额；高斯 LMM；1,799 行；站点截距吸收物种数、努力与缩放</p></div>
-  </div>
-  <p>两部分均含站点随机截距、物种随机截距，以及保护、足迹、海拔、温度的不相关物种随机斜率；跨层交互为足迹 × 体重、足迹 × 受威胁、保护 × 体重、保护 × 受威胁。物种斜率与体重的相关只用<b>不含性状交互</b>的模型计算，避免把性状项代入斜率造成循环。负二项伪计数模型（RAI × 相机日 / 100，单站点可达 6.5 万）未通过诊断，只作方向对照。</p>
+<section id="p5" class="part">
+  <p class="eyebrow">Part Ⅴ · Community completeness</p>
+  <h2>Ⅴ 群落完整性评估</h2>
+  <p><span class="q">要回答的问题：</span>期望的物种还剩多少，缺的是谁。群落完整性以期望物种池为分母，回答“应有的物种还在不在”。</p>
+  <h3>确认、沉默与未测</h3>
+  <p>对 244 个群落清查中的 5,717 个期望组合，用物种特异的 CD90 判断努力是否充分：拍到了记为“确认”，努力充分仍未拍到记为“沉默”，努力不足记为“未测”。</p>
+  <ul class="findings">
+    <li><b>一半沉默，七分之一未测。</b>确认 38%，沉默 48%，未测 14%。中位站点期望 22 种，确认 8.5 种。把检出率在 bootstrap 区间内变动，沉默比例在 27%–57% 之间，确认比例不变。</li>
+    <li><b>五维完整性。</b>分类完整性中位 0.40，检出校正后 0.43，受威胁加权 0.33，功能 0.33，系统发育 0.61。检出校正只把完整性提高了 0.03，说明典型站点的缺口主要不是努力问题。</li>
+    <li><b>占据模型的一致结论。</b>站点群落完整性中位 0.58，省级（以省级物种池为分母）0.79；3,537 个未检出组合中多半仍在的占 17%，多半不在的占 67%。群落完整性与相机日无关（ρ = 0.05），多拍补不回已经不在的物种。</li>
+  </ul>
+  <figure><img src="figs/E1_states.jpg" alt="244 个站点的证据状态与五维完整性" loading="lazy" width="1800" height="1476"><figcaption><b>图 Ⅴ-1　以检出为条件的证据库。</b>站点分类完整性、按区域的确认 / 沉默 / 未测构成及五维完整性分布。</figcaption></figure>
+  <figure><img src="figs/P9_province.jpg" alt="省级采样完整度与群落完整性的分解" loading="lazy" width="1372" height="1800"><figcaption><b>图 Ⅴ-2　省级缺口的分解。</b>已检出、采样缺口、群落缺口与调查未覆盖四部分；鸟类用 Chao2；两种估计方法的比较。</figcaption></figure>
+  <h3>缺的是谁</h3>
+  <ul class="findings">
+    <li><b>食肉动物，而不是大型物种。</b>69 种的沉默率中位 0.61。系统发育二项模型中，以动物为食的物种沉默概率显著更高（+1.07 logit，95% 可信区间 0.01–2.15），体重无效应，系统发育信号可忽略（λ = 0.01）。云豹在 128 个充分调查的站点中只有 1 次记录。</li>
+    <li><b>受威胁物种。</b>补调查目标（多半在场但漏拍）以食蟹獴、斑林狸、红面猴、中华穿山甲为首；检出率降为 1/10 后仍判为不在的稳健候选消失有云豹（143/144 个站点）、金猫、兔狲、石貂、荒漠猫。</li>
+    <li><b>分布图本身也有误差。</b>282 条记录（58 种）落在 IUCN 分布图外 25 km 以上，11 条记录出现在 IUCN 标为可能灭绝或灭绝的区域。“多半不在”因此同时包含局地消失和分布图高估两种可能。</li>
+  </ul>
+  <figure><img src="figs/E3_carnivores.jpg" alt="物种沉默率与体重、营养级的关系" loading="lazy" width="1401" height="1800"><figcaption><b>图 Ⅴ-3　非随机的物种缺失。</b>沉默率与体重、营养级，系统发育二项模型的效应量。</figcaption></figure>
+  <figure><img src="figs/P10_threatened.jpg" alt="可拍但没拍到的受威胁与稀有兽类" loading="lazy" width="1432" height="1800"><figcaption><b>图 Ⅴ-4　可拍但没拍到的受威胁与稀有兽类。</b>省份 × 物种状态矩阵、补调查目标与稳健候选消失。</figcaption></figure>
+  <figure><img src="figs/E7_rangemap.jpg" alt="相机证据与 IUCN 分布图的不一致" loading="lazy" width="1800" height="935"><figcaption><b>图 Ⅴ-5　相机证据与 IUCN 分布图的不一致。</b>分布图外的记录与标为可能灭绝区域的记录。</figcaption></figure>
+</section>
+
+<section id="p6" class="part">
+  <p class="eyebrow">Part Ⅵ · Structure and rarity</p>
+  <h2>Ⅵ 群落结构与稀有性</h2>
+  <p><span class="q">要回答的问题：</span>在场的群落由谁主导，常见种与稀有种有什么区别。这部分只用物种组成与相对丰度都完整的 158 个群落级清查，并以站点内份额 p<sub>ij</sub> = A<sub>ij</sub> / Σ<sub>j</sub> A<sub>ij</sub> 为基本量：同一站点各物种的 RAI 共用同一定义，份额不受 Ⅰ 中发现的整体缩放误差影响。</p>
+  <ul class="findings">
+    <li><b>少数有蹄类主导。</b>份额最大的两个物种合计占探测的中位 66%；检出中位 11 种，但 Hill 有效物种数只有 3.6–4.5；119/158 个站点的优势种是偶蹄类，最常见的是小麂、野猪、毛冠鹿和赤麂。</li>
+    <li><b>多度–占据关系成立。</b>局地丰度高的物种在分布区内占据率也高（系统发育回归斜率 0.40 [0.16, 0.64]，p = 0.002）。</li>
+    <li><b>与受威胁相关的稀有性维度。</b>分布面积小（OR 0.52）和局地丰度低（OR 0.36）与受威胁相关，分布区内占据率无关（OR 1.11）。在 0、1、2、3 个维度上稀有的物种，受威胁比例依次为 25%、39%、75%、100%。这一关联部分是循环的，因为红色名录评估本身依据分布与种群。</li>
+  </ul>
+  <figure><img src="figs/FigA1_dominance_structure.jpg" alt="站点分布、纳入流程、秩–丰度曲线、优势种与有效物种数" loading="lazy" width="2200" height="1984"><figcaption><b>图 Ⅵ-1　少数有蹄类主导相机记录的群落。</b></figcaption></figure>
+  <figure><img src="figs/FigA2_commonness_rarity.jpg" alt="多度–占据关系、稀有性维度与受威胁" loading="lazy" width="2200" height="1803"><figcaption><b>图 Ⅵ-2　常见与稀有。</b>多度–占据关系、三维稀有性与受威胁的 OR、稀有维度的叠加与 Rabinowitz 式分类。</figcaption></figure>
+</section>
+
+<section id="p7" class="part">
+  <p class="eyebrow">Part Ⅶ · Drivers</p>
+  <h2>Ⅶ 驱动因素：气候、人类足迹与体型过滤</h2>
+  <p><span class="q">要回答的问题：</span>是什么决定了一个站点缺多少、缺了谁。三组分析看的是不同的响应变量，结论需要放在一起读。</p>
+  <ul class="findings">
+    <li><b>群落完整性跟温度走。</b>五维完整性的 beta 混合模型中，越暖的站点完整性越低（功能完整性 −0.55 / SD，95% CI −1.00 至 −0.09），当代人类足迹和保护状态均无可检出效应。南方温暖、开发历史长的地区期望物种多、清查最空，温度在这里很可能代表了历史上的清除，而非当代压力。</li>
+    <li><b>是否被记录取决于调查是否到达分布区。</b>省级物种 × 省份二项模型中，分布区内的群落位点数（+1.17）、分布区占省比例（+0.92）和保护区比例（+0.86）为正，年均温为负（−1.04）。</li>
+    <li><b>群落组成按体型被人类足迹过滤。</b>相对丰度分析中，人类足迹每增加 1 SD，受威胁种份额下降 5.6 个百分点，大型兽类份额下降 9.5 个百分点，群落平均体重轻约 23%。物种层障碍式模型中，足迹 × 体重的交互在出现（−0.39）和相对丰度（−0.19）两部分都为负，并在所有敏感性分析中保持。</li>
+  </ul>
+  <p>完整性不随足迹变化而组成随足迹变化，二者并不矛盾：足迹高的地方大型物种减少、小型常见物种增加，期望物种的总数变化不大，但群落由谁组成已经改变。只看物种在不在，会漏掉这种替换。</p>
+  <figure><img src="figs/E2_drivers.jpg" alt="五维完整性的驱动因素" loading="lazy" width="1800" height="1229"><figcaption><b>图 Ⅶ-1　群落完整性的驱动因素。</b>beta 混合模型的标准化系数，及完整性随人类足迹的边际预测。</figcaption></figure>
+  <figure><img src="figs/P5_drivers.jpg" alt="期望物种是否被记录的驱动因素" loading="lazy" width="1681" height="1800"><figcaption><b>图 Ⅶ-2　期望物种是否被记录（省级）。</b>物种 × 省份二项 GLMM，762 对，含敏感性模型。</figcaption></figure>
+  <figure><img src="figs/FigA4_winners_losers.jpg" alt="人类足迹梯度上的物种分化" loading="lazy" width="2200" height="1924"><figcaption><b>图 Ⅶ-3　人类足迹按体型过滤物种。</b>物种斜率来自不含性状的模型，避免循环论证；单个物种的置信区间大多跨 0，稳健的是体型梯度。</figcaption></figure>
+</section>
+
+<section id="p8" class="part">
+  <p class="eyebrow">Part Ⅷ · Protection</p>
+  <h2>Ⅷ 保护成效评估</h2>
+  <p><span class="q">要回答的问题：</span>保护地内的群落是否更完整、组成是否不同、能否缓冲人类压力。保护地选址偏向“高且远”，所以每项比较都调整了海拔、气候、努力和年份。</p>
+  <ul class="findings">
+    <li><b>完整性：保护地内外无差异。</b>国家级保护地与非保护站点的受威胁加权完整性差 +0.11 logit（95% CI −0.25 至 0.46）。</li>
+    <li><b>食肉动物在保护地内同样沉默。</b>云豹在 111 个充分调查的保护地站点中 110 个沉默，豺 36/37，金猫 42/45，狼 90/111，豹 28/40。这与何杰坤团队报告的保护地内食肉动物分布区收缩一致。</li>
+    <li><b>反复调查仍未记录。</b>省级分析中 223 个未记录组合有 113 个（受威胁 49 个）在分布区内已有 ≥ 3 个群落位点；云豹在 15 个期望省份中只有 2 省有记录。</li>
+    <li><b>营养级降级：未重现。</b>有顶级捕食者与无顶级捕食者的站点间，中型食肉动物与非野猪有蹄类的 RAI 没有差异。这是置信区间较宽的零结果，文献 RAI 的口径噪声可能掩盖了真实信号，并不否定基于标准化监测网络的结论 <span class="cite">(Liu et al. 2025)</span>。</li>
+    <li><b>组成：保护状态本身无关，也没有缓冲。</b>保护地内的人类足迹确实更低（低 0.48 SD），但五项组成指标在保护地内外都没有显著差异（Holm 校正；严格定义和空间随机场下一致）。足迹的负效应在保护地内同样显著，保护 × 足迹交互的 p 值为 0.43–0.99。保护地外只有 21 个站点，现有数据只能排除约 8 个百分点以上的差异。</li>
+  </ul>
+  <figure><img src="figs/E4_pa.jpg" alt="保护地级别、保护地内外的食肉动物沉默与营养结构" loading="lazy" width="1800" height="1623"><figcaption><b>图 Ⅷ-1　保护地与营养结构。</b>按保护级别的受威胁加权完整性、保护地内外食肉动物的沉默比例、有无顶级捕食者站点的 RAI 比较。</figcaption></figure>
+  <figure><img src="figs/P4_reserve.jpg" alt="未记录物种、调查证据与保护区" loading="lazy" width="1800" height="1653"><figcaption><b>图 Ⅷ-2　未记录物种的保护区诊断（省级）。</b>按调查证据与保护区状态分类的未记录组合及对应的行动建议。</figcaption></figure>
+  <figure><img src="figs/FigA3_protection_footprint.jpg" alt="保护状态与人类足迹对群落组成的影响" loading="lazy" width="2200" height="1683"><figcaption><b>图 Ⅷ-3　保护状态本身无关，人类足迹决定群落组成。</b>协变量差异、四种设定下的保护效应、足迹效应、部分效应曲线与缓冲检验。</figcaption></figure>
+</section>
+
+<section id="p9" class="part">
+  <p class="eyebrow">Part Ⅸ · Priorities</p>
+  <h2>Ⅸ 监测优先区</h2>
+  <p><span class="q">要回答的问题：</span>下一步的调查应该投向哪里。</p>
+  <ul class="findings">
+    <li><b>高丰富度区多半无调查。</b>0.5° 网格中 93% 没有已定位的相机研究；期望 ≥ 20 种的 1,174 格中 987 格（84%）为空白，集中在横断山北部、秦岭山麓和南方丘陵。</li>
+    <li><b>综合优先指数。</b>把期望丰富度、期望受威胁种、调查努力缺口和保护地监测缺口等权合成，前 10% 的 417 个网格主要在四川、西藏、云南和新疆；在 10 种权重方案中至少 80% 入选的稳健优先网格有 215 格。</li>
+    <li><b>按物种设计努力。</b>一次以穿山甲为目标的调查需要约 30,000 相机日，麂类只需约 100；按物种汇总努力的监测会持续产出“未测”而非“缺失”的结论。</li>
+  </ul>
+  <figure><img src="figs/C11_priority.jpg" alt="综合监测优先指数" loading="lazy" width="1800" height="1131"><figcaption><b>图 Ⅸ-1　综合监测优先指数</b>及其对权重的敏感性。</figcaption></figure>
+</section>
+
+<section id="synthesis">
+  <p class="eyebrow">Synthesis</p>
+  <h2>综合认识</h2>
+  <ol class="steps">
+    <li><b>缺口主要是物种不在，而不是没拍到。</b>省级覆盖度高（Ĉ 0.98），站点采样完整度 0.69 而群落完整性只有 0.58，检出校正只把完整性提高 0.03。增加原地努力能补的空间有限（γ = 0.13）。</li>
+    <li><b>缺失有明确的对象。</b>以检出为条件，沉默集中在食肉动物；相对丰度上，大型和受威胁物种在人类足迹高的地方份额更低。前者回答“谁不见了”，后者回答“谁在变少”，两条证据指向同一批物种。</li>
+    <li><b>不同响应对应不同驱动。</b>“在不在”跟温度（历史清除的代理）走，“组成如何”跟当代人类足迹走。两者结合，说明既有历史遗留的缺失，也有正在进行的替换。</li>
+    <li><b>保护状态本身不能区分结果。</b>在完整性、食肉动物沉默和群落组成三个层面，保护地内外都没有可检出的差异，人类足迹的负效应在保护地内同样存在。这与何杰坤团队关于保护地内食肉动物分布区收缩的结论一致。提示评估保护成效时，压力是否被有效降低可能比是否位于保护地内更关键。</li>
+    <li><b>证据本身有空白。</b>英文文献收录 43%，高丰富度网格 84% 无调查，国家级保护地按面积只有 38% 有调查。以上结论适用于已调查的区域，空白区需要新的调查来检验。</li>
+  </ol>
 </section>
 
 <section id="rigor">
-  <p class="eyebrow">7 · Rigor</p>
+  <p class="eyebrow">Rigor</p>
   <h2>统计严谨性</h2>
   <div class="scroll"><table>
     <thead><tr><th>方面</th><th>做法</th></tr></thead>
     <tbody>
-      <tr><td>非独立性</td><td>省份随机截距；站点与物种随机效应；系统发育回归</td></tr>
-      <tr><td>混杂控制</td><td>海拔、气候、努力、年份、丰度类型；熵平衡；总效应与直接效应分开</td></tr>
-      <tr><td>空间自相关</td><td>残差 Moran's I（k = 5）；指数空间随机场重拟合</td></tr>
-      <tr><td>多重比较</td><td>五个群落响应 Holm 校正</td></tr>
-      <tr><td>效应量</td><td>响应尺度平均边际效应与 95% CI；标准化系数；OR</td></tr>
-      <tr><td>模型诊断</td><td>DHARMa 离散与均匀性检验；收敛检查；对照有效样本量</td></tr>
-      <tr><td>敏感性</td><td>仅 RAI 站点、仅 30 min 阈值、严格保护定义、学生 t 误差、伪计数、非系统发育模型、不含性状模型</td></tr>
+      <tr><td>缺失的解释</td><td>以物种特异检出标准区分确认、沉默与未测；残存低密度种群压力测试（检出率降为 1/10）</td></tr>
+      <tr><td>可比性</td><td>RAI 统一单位并复算；相对丰度用站点内份额；跨物种比较用体重校正</td></tr>
+      <tr><td>非独立性</td><td>区域、省份、1° 网格随机截距；站点与物种随机效应；系统发育回归</td></tr>
+      <tr><td>混杂与中介</td><td>海拔、气候、努力、年份、文献语言；熵平衡；保护效应的总效应与直接效应分开</td></tr>
+      <tr><td>空间自相关</td><td>残差 Moran's I；网格随机截距或指数空间随机场</td></tr>
+      <tr><td>模型选择与诊断</td><td>LOO 逐级比较；R-hat、ESS、发散；DHARMa 残差；后验预测检验</td></tr>
+      <tr><td>多重比较</td><td>多个响应的 Holm 校正（证据库的探索性分析另附 Holm 调整值）</td></tr>
+      <tr><td>敏感性</td><td>期望池（10 / 25 / 50 km、仅 Extant、Beals 共现池）；检出阈值 0.80–0.95；物种池口径；RAI 来源与阈值；严格保护定义</td></tr>
       <tr><td>循环论证</td><td>物种斜率与体重的相关只用不含性状的模型；受威胁与稀有性的关联注明部分循环</td></tr>
-      <tr><td>检验功效</td><td>报告 CI 宽度：可排除约 8 个百分点以上的保护效应</td></tr>
+      <tr><td>检验功效</td><td>报告置信区间宽度，不把“无显著差异”写成“无效应”</td></tr>
     </tbody>
   </table></div>
 </section>
 
-<section id="results">
-  <p class="eyebrow">8 · Results</p>
-  <h2>主要结果</h2>
-  <h3 id="r1">Q1 · 少数有蹄类主导相机记录</h3>
-  <div class="result">
-    <figure><img src="figs/FigA1_dominance_structure.jpg" alt="图 A1：站点分布、纳入流程、秩–丰度曲线、最常见的优势种与有效物种数" loading="lazy" width="2200" height="1984"><figcaption>图 A1　群落优势结构</figcaption></figure>
-    <div class="nums">
-      <div class="num"><b class="hot">66%</b><span>前两种物种占探测的中位比例</span></div>
-      <div class="num"><b>3.6–4.5</b><span>有效物种数（q = 2 与 q = 1；检出中位 11 种）</span></div>
-      <div class="num"><b>119/158</b><span>站点由偶蹄类主导；最常见的是小麂、野猪、毛冠鹿、赤麂</span></div>
-    </div>
-  </div>
-  <h3 id="r2">Q2 · 分布窄、局地少的物种更受威胁</h3>
-  <div class="result">
-    <figure><img src="figs/FigA2_commonness_rarity.jpg" alt="图 A2：多度–占据关系、稀有性维度与受威胁的优势比、稀有维度数与受威胁比例、Rabinowitz 式分类" loading="lazy" width="2200" height="1803"><figcaption>图 A2　常见与稀有</figcaption></figure>
-    <div class="nums">
-      <div class="num"><b class="hot">0.40</b><span>多度–占据斜率 [0.16, 0.64]，p = 0.002</span></div>
-      <div class="num"><b>OR 0.36 / 0.52</b><span>局地丰度 / 分布面积每 SD 与受威胁；占据率无关（OR 1.11）</span></div>
-      <div class="num"><b>9/9</b><span>三个维度都稀有的物种全部受威胁（0、1、2 维依次为 25%、39%、75%）</span></div>
-    </div>
-  </div>
-  <h3 id="r3">Q3 · 保护状态本身无关，人类足迹决定群落组成</h3>
-  <div class="result">
-    <figure><img src="figs/FigA3_protection_footprint.jpg" alt="图 A3：协变量差异、保护效应、足迹效应、受威胁份额与大型兽类份额随足迹变化、缓冲检验" loading="lazy" width="2200" height="1683"><figcaption>图 A3　保护地与人类足迹</figcaption></figure>
-    <div class="nums">
-      <div class="num"><b class="hot">−5.6</b><span>受威胁种份额（百分点，每 SD 足迹）</span></div>
-      <div class="num"><b>−9.5</b><span>大型兽类份额（百分点，每 SD 足迹）；平均体重轻约 23%</span></div>
-      <div class="num"><b>≈ 0</b><span>保护状态本身：五项指标均不显著；保护地内足迹低 0.48 SD，但负效应同样显著（无缓冲）</span></div>
-    </div>
-  </div>
-  <h3 id="r4">Q4 · 按体型过滤，而非按保护状态</h3>
-  <div class="result">
-    <figure><img src="figs/FigA4_winners_losers.jpg" alt="图 A4：物种足迹斜率与体重的关系、斜率最负与最正的物种、跨层交互与敏感性" loading="lazy" width="2200" height="1924"><figcaption>图 A4　赢家与输家</figcaption></figure>
-    <div class="nums">
-      <div class="num"><b class="hot">−0.39</b><span>足迹 × 体重（出现部分）；相对丰度部分 −0.19</span></div>
-      <div class="num"><b>ρ = −0.43 / −0.31</b><span>不含性状模型中物种足迹斜率与体重的相关</span></div>
-      <div class="num"><b>SD ≈ 0</b><span>物种对保护状态的反应没有差异</span></div>
-    </div>
-  </div>
-  <p class="note">单个物种的置信区间大多跨 0（只有狍的出现斜率显著为正），稳健的是体型梯度本身。详细数值见 RESULTS_SUMMARY.md，图注见 FIGURE_LEGENDS.md。</p>
-</section>
-
 <section id="limits">
-  <p class="eyebrow">9 · Limits</p>
-  <h2>局限与偏倚控制</h2>
+  <p class="eyebrow">Limits</p>
+  <h2>局限</h2>
   <ul class="plain">
-    <li><b>RAI 口径不统一</b>：份额消除整体缩放差异，不能消除物种间可检测性差异；跨物种比较用体重校正，结论以站点内、同一物种内的比较为主。</li>
-    <li><b>检验功效</b>：保护地外只有 21 个站点；熵平衡后对照有效样本量仅 4.3，加权结果不作结论。</li>
-    <li><b>中介变量</b>：人类足迹可能是保护起作用的途径，调整后可能低估保护的总效应，所以同时报告总效应。</li>
-    <li><b>空间精度</b>：足迹为 5 km 均值，部分坐标为研究区中点；保护地图层只含自然保护区，不含国家公园新边界。</li>
-    <li><b>部分循环</b>：红色名录评估本身依据分布范围与种群规模，受威胁与稀有性的关联可视为一致性检验。</li>
-    <li><b>截面设计</b>：只能做空间比较，不能推断时间上的下降。</li>
-    <li><b>发表偏倚</b>：文献清查偏向保护地与物种丰富的地点。</li>
+    <li><b>文献不是随机样本。</b>英文文献收录约四成，中文期刊尚需知网补检；调查集中在少数山地和保护地。</li>
+    <li><b>分布图误差。</b>IUCN 分布图粒度粗，“沉默”或“多半不在”中有一部分是制图误差；共现池把沉默率降低约三分之一，但物种排序与食肉动物效应不变。</li>
+    <li><b>检出模型的假设。</b>单次清查中占据与检出的区分依赖努力梯度和函数形式；检出率仅 51 种可单独估计，其余借用中位数。</li>
+    <li><b>RAI 口径。</b>份额能消除整体缩放差异，不能消除物种间可检测性差异。</li>
+    <li><b>保护效应的功效。</b>保护地外站点少（相对丰度分析中 21 个，证据库中 106 个），人类足迹可能是保护的中介，调整后可能低估总效应。</li>
+    <li><b>时间与空间精度。</b>人类足迹为 5 km 均值并按最近年份匹配；部分坐标为研究区中点；截面数据不能推断时间趋势。</li>
   </ul>
 </section>
 
 <section id="repro">
-  <p class="eyebrow">10 · Reproducibility</p>
+  <p class="eyebrow">Reproducibility</p>
   <h2>可复现性</h2>
   <div class="codebox">
     <button type="button" id="copy-run">复制</button>
-    <pre class="code" id="run-order">Rscript scripts/01_build_rai.R
-Rscript scripts/02_structure_rarity.R
-Rscript scripts/03_pa_community.R
-Rscript scripts/04_species_responses.R
-Rscript scripts/05a_figA1.R   # 05b、05c、05d 同理
-python3 scripts/06_workflow_ppt.py</pre>
+    <pre class="code" id="run-order"># Ⅰ 文献数据库
+Rscript 14_litdb_analysis/scripts/01_clean_bibliographic.R   # 至 06_temporal_dynamics.R
+# Ⅲ、Ⅴ 站点证据库(检出、证据状态、完整性)
+Rscript 15_evidence_db/scripts/06_site_covariates.R          # 至 15_threshold_sensitivity.R
+# Ⅱ、Ⅸ 覆盖与优先区
+Rscript 16_coverage/scripts/03_spatial_coverage.R            # 至 11_composite_priority.R
+# Ⅳ、Ⅴ 省级与站点完整度(占据模型 occ_effort.stan)
+Rscript 21_province_completeness/scripts/01_build_province_pool.R   # 至 11_chao2_province.R
+# Ⅵ–Ⅷ 相对丰度、驱动与保护
+Rscript 22_relative_abundance/scripts/01_build_rai.R         # 至 05d_figA4.R</pre>
   </div>
-  <p>环境：R 4.5.1；glmmTMB 1.1.14、lme4 1.1.37、marginaleffects 0.32.0、DHARMa 0.4.7、phylolm 2.6.5、ape 5.8.1、spdep 1.4.1、sf 1.0.23；随机种子 22。输出为表 A01–A15、图 A1–A4 与日志 01–04。逐站点物种组成与含坐标的站点表不对外分发。</p>
+  <p>环境：R 4.5.1；glmmTMB 1.1.14、lme4 1.1.37、brms 2.23.0、cmdstanr 0.8.0、marginaleffects 0.32.0、DHARMa 0.4.7、phylolm 2.6.5、iNEXT、spdep 1.4.1、sf 1.0.23。所有地图使用标准地图 GS(2024)0650。分析代码与数据未在本页公开；逐站点物种组成、站点坐标与 IUCN 派生的期望池不对外分发。</p>
 </section>
 
 <section id="next">
-  <p class="eyebrow">11 · Next steps</p>
+  <p class="eyebrow">Next steps</p>
   <h2>下一步</h2>
   <ol class="steps">
-    <li>补充保护地外的群落级清查，目标识别 5 个百分点量级的保护效应。</li>
-    <li>把人类足迹拆成道路、农田、人口密度与夜间灯光，识别驱动体型过滤的压力来源。</li>
-    <li>对多年调查的站点做时间序列，检验大型兽类份额是否在下降。</li>
-    <li>推广到地栖鸟类（21 号模块已有期望池）。</li>
-    <li>投稿前系统检索研究空缺，预注册敏感性分析清单，整理数据与代码可得性声明。</li>
+    <li>补齐文献：中文期刊在知网补检，复核 189 篇候选遗漏英文文献与 521 条剔除记录。</li>
+    <li>补充保护地外的群落清查，提高保护效应的检验功效。</li>
+    <li>把人类足迹拆成道路、农田、人口与夜间灯光，识别驱动体型过滤的压力来源。</li>
+    <li>对多年调查的站点做时间序列，检验大型兽类和食肉动物是否在持续减少。</li>
+    <li>对“稳健多半不在”的组合，结合历史记录或定向调查区分局地消失与分布图高估。</li>
+    <li>按物种 CD90 设计优先区的补充调查，并推广到地栖鸟类。</li>
   </ol>
 </section>
 
 <section id="refs">
   <p class="eyebrow">References</p>
   <h2>参考文献</h2>
-  <p class="note">DOI 于 2026-10-19 经 Crossref 核实；Rabinowitz 1981 为书章，无 DOI。</p>
+  <p class="note">DOI 于 2026-10-19 经 Crossref 核实；Rabinowitz 1981 为书章，Zhu et al. 2026 为预印本。</p>
   <ol class="refs">
     <li>Ahumada JA, et al. (2011) Community structure and diversity of tropical forest mammals: data from a global camera trap network. Phil Trans R Soc B 366:2703–2711. <a href="https://doi.org/10.1098/rstb.2011.0115">doi:10.1098/rstb.2011.0115</a></li>
     <li>Beaudrot L, et al. (2016) Standardized assessment of biodiversity trends in tropical forest protected areas: the end is not in sight. PLoS Biol 14:e1002357. <a href="https://doi.org/10.1371/journal.pbio.1002357">doi:10.1371/journal.pbio.1002357</a></li>
-    <li>Brooks ME, et al. (2017) glmmTMB balances speed and flexibility among packages for zero-inflated generalized linear mixed modeling. R Journal 9:378–400. <a href="https://doi.org/10.32614/RJ-2017-066">doi:10.32614/RJ-2017-066</a></li>
+    <li>Benítez-López A, et al. (2017) The impact of hunting on tropical mammal and bird populations. Science 356:180–183. <a href="https://doi.org/10.1126/science.aaj1891">doi:10.1126/science.aaj1891</a></li>
     <li>Brown JH (1984) On the relationship between abundance and distribution of species. Am Nat 124:255–279. <a href="https://doi.org/10.1086/284267">doi:10.1086/284267</a></li>
     <li>Cardillo M, et al. (2005) Multiple causes of high extinction risk in large mammal species. Science 309:1239–1241. <a href="https://doi.org/10.1126/science.1116030">doi:10.1126/science.1116030</a></li>
-    <li>Chao A, et al. (2014) Rarefaction and extrapolation with Hill numbers. Ecol Monogr 84:45–67. <a href="https://doi.org/10.1890/13-0133.1">doi:10.1890/13-0133.1</a></li>
     <li>Chen C, et al. (2022) Global camera trap synthesis highlights the importance of protected areas in maintaining mammal diversity. Conserv Lett 15:e12865. <a href="https://doi.org/10.1111/conl.12865">doi:10.1111/conl.12865</a></li>
     <li>Dirzo R, et al. (2014) Defaunation in the Anthropocene. Science 345:401–406. <a href="https://doi.org/10.1126/science.1251817">doi:10.1126/science.1251817</a></li>
-    <li>Fick SE, Hijmans RJ (2017) WorldClim 2: new 1-km spatial resolution climate surfaces for global land areas. Int J Climatol 37:4302–4315. <a href="https://doi.org/10.1002/joc.5086">doi:10.1002/joc.5086</a></li>
     <li>Gaston KJ, et al. (2000) Abundance–occupancy relationships. J Appl Ecol 37:39–59. <a href="https://doi.org/10.1046/j.1365-2664.2000.00485.x">doi:10.1046/j.1365-2664.2000.00485.x</a></li>
     <li>Geldmann J, et al. (2019) A global-level assessment of the effectiveness of protected areas at resisting anthropogenic pressures. PNAS 116:23209–23215. <a href="https://doi.org/10.1073/pnas.1908221116">doi:10.1073/pnas.1908221116</a></li>
-    <li>Hainmueller J (2012) Entropy balancing for causal effects. Polit Anal 20:25–46. <a href="https://doi.org/10.1093/pan/mpr025">doi:10.1093/pan/mpr025</a></li>
-    <li>Hill MO (1973) Diversity and evenness: a unifying notation and its consequences. Ecology 54:427–432. <a href="https://doi.org/10.2307/1934352">doi:10.2307/1934352</a></li>
-    <li>Ives AR, Garland T (2010) Phylogenetic logistic regression for binary dependent variables. Syst Biol 59:9–26. <a href="https://doi.org/10.1093/sysbio/syp074">doi:10.1093/sysbio/syp074</a></li>
+    <li>He J, Zhang L, Yu J, Wang F, Xiao Z, Liu J (2026) Widespread range contraction of carnivores in protected areas of China. Nat Sustain 9:1188–1197. <a href="https://doi.org/10.1038/s41893-026-01855-2">doi:10.1038/s41893-026-01855-2</a></li>
+    <li>Jiang Z (2015) China renews its vertebrate Red List. Oryx 49:14–15. <a href="https://doi.org/10.1017/s0030605314000933">doi:10.1017/s0030605314000933</a></li>
     <li>Jones KR, et al. (2018) One-third of global protected land is under intense human pressure. Science 360:788–791. <a href="https://doi.org/10.1126/science.aap9565">doi:10.1126/science.aap9565</a></li>
     <li>Kays R, et al. (2020) An empirical evaluation of camera trap study design: how many, how long and when? Methods Ecol Evol 11:700–713. <a href="https://doi.org/10.1111/2041-210X.13370">doi:10.1111/2041-210X.13370</a></li>
     <li>Lele SR, Moreno M, Bayne E (2012) Dealing with detection error in site occupancy surveys: what can we do with a single survey? J Plant Ecol 5:22–31. <a href="https://doi.org/10.1093/jpe/rtr042">doi:10.1093/jpe/rtr042</a></li>
+    <li>Liu J, Kang Y, Jensen AJ, Kays R, Jiang A (2025) Apex predator loss drives trophic downgrading in China's protected areas. Curr Biol 35:2872–2880. <a href="https://doi.org/10.1016/j.cub.2025.05.016">doi:10.1016/j.cub.2025.05.016</a></li>
+    <li>Liu J, Kang Y, Jiang A (2026) Camera trap-based spatial patterns and drivers of mammal taxonomic, functional, and phylogenetic diversity in Mainland China. Biodivers Conserv 35:33. <a href="https://doi.org/10.1007/s10531-025-03248-x">doi:10.1007/s10531-025-03248-x</a></li>
     <li>Mu H, et al. (2022) A global record of annual terrestrial Human Footprint dataset from 2000 to 2018. Sci Data 9:176. <a href="https://doi.org/10.1038/s41597-022-01284-8">doi:10.1038/s41597-022-01284-8</a></li>
+    <li>Pärtel M, Szava-Kovats R, Zobel M (2011) Dark diversity: shedding light on absent species. Trends Ecol Evol 26:124–128. <a href="https://doi.org/10.1016/j.tree.2010.12.004">doi:10.1016/j.tree.2010.12.004</a></li>
+    <li>Pärtel M, et al. (2025) Global impoverishment of natural vegetation revealed by dark diversity. Nature 641:917–924. <a href="https://doi.org/10.1038/s41586-025-08814-5">doi:10.1038/s41586-025-08814-5</a></li>
     <li>Purvis A, et al. (2000) Predicting extinction risk in declining species. Proc R Soc B 267:1947–1952. <a href="https://doi.org/10.1098/rspb.2000.1234">doi:10.1098/rspb.2000.1234</a></li>
     <li>Rabinowitz D (1981) Seven forms of rarity. In: Synge H (ed) The Biological Aspects of Rare Plant Conservation. Wiley, Chichester, pp 205–217.</li>
     <li>Redford KH (1992) The empty forest. BioScience 42:412–422. <a href="https://doi.org/10.2307/1311860">doi:10.2307/1311860</a></li>
     <li>Rich LN, et al. (2017) Assessing global patterns in mammalian carnivore occupancy and richness by integrating local camera trap surveys. Global Ecol Biogeogr 26:918–929. <a href="https://doi.org/10.1111/geb.12600">doi:10.1111/geb.12600</a></li>
     <li>Ripple WJ, et al. (2014) Status and ecological effects of the world's largest carnivores. Science 343:1241484. <a href="https://doi.org/10.1126/science.1241484">doi:10.1126/science.1241484</a></li>
-    <li>Smithson M, Verkuilen J (2006) A better lemon squeezer? Psychol Methods 11:54–71. <a href="https://doi.org/10.1037/1082-989X.11.1.54">doi:10.1037/1082-989X.11.1.54</a></li>
     <li>Sollmann R, et al. (2013) Risky business or simple solution – relative abundance indices from camera-trapping. Biol Conserv 159:405–412. <a href="https://doi.org/10.1016/j.biocon.2012.12.025">doi:10.1016/j.biocon.2012.12.025</a></li>
-    <li>Soria CD, et al. (2021) COMBINE: a coalesced mammal database of intrinsic and extrinsic traits. Ecology 102:e03344. <a href="https://doi.org/10.1002/ecy.3344">doi:10.1002/ecy.3344</a></li>
-    <li>Tilker A, et al. (2019) Habitat degradation and indiscriminate hunting differentially impact faunal communities in the Southeast Asian tropical biodiversity hotspot. Commun Biol 2:396. <a href="https://doi.org/10.1038/s42003-019-0640-y">doi:10.1038/s42003-019-0640-y</a></li>
-    <li>Upham NS, Esselstyn JA, Jetz W (2019) Inferring the mammal tree. PLoS Biol 17:e3000494. <a href="https://doi.org/10.1371/journal.pbio.3000494">doi:10.1371/journal.pbio.3000494</a></li>
+    <li>Steenweg R, et al. (2017) Scaling-up camera traps: monitoring the planet's biodiversity with networks of remote sensors. Front Ecol Environ 15:26–34. <a href="https://doi.org/10.1002/fee.1448">doi:10.1002/fee.1448</a></li>
     <li>Venter O, et al. (2016) Sixteen years of change in the global terrestrial human footprint and implications for biodiversity conservation. Nat Commun 7:12558. <a href="https://doi.org/10.1038/ncomms12558">doi:10.1038/ncomms12558</a></li>
     <li>Xu W, et al. (2017) Strengthening protected areas for biodiversity and ecosystem services in China. PNAS 114:1601–1606. <a href="https://doi.org/10.1073/pnas.1620503114">doi:10.1073/pnas.1620503114</a></li>
-    <li>蒋志刚 等（2016）中国脊椎动物红色名录. 生物多样性 24:500–551. <a href="https://doi.org/10.17520/biods.2016076">doi:10.17520/biods.2016076</a></li>
+    <li>Zhang L, Zhang B, Zhou M, Duan H, Xie Z, Huo X, Yu J, He J (2026) Species traits mediate the abundant-center patterns in ground-dwelling mammal and bird species in China. Ecography 2026:e08491. <a href="https://doi.org/10.1002/ecog.08491">doi:10.1002/ecog.08491</a></li>
+    <li>Zhu C, et al. (2026) Non-random defaunation across China's protected area network revealed by multidimensional dark diversity. Preprint, Research Square. <a href="https://doi.org/10.21203/rs.3.rs-10531544/v1">doi:10.21203/rs.3.rs-10531544/v1</a></li>
+    <li>蒋志刚, 江建平, 王跃招, 等（2016）中国脊椎动物红色名录. 生物多样性 24:500–551. <a href="https://doi.org/10.17520/biods.2016076">doi:10.17520/biods.2016076</a></li>
   </ol>
-  <footer>配套文件：RESEARCH_WORKFLOW.md（研究工作流文档）、RA_研究工作流_v1.pptx（20 页汇报稿）、RESULTS_SUMMARY.md、FIGURE_LEGENDS.md。</footer>
+  <footer>© 2026 Chenchen Ding · 本页为尚未发表研究的工作流，引用或转载前请先与作者联系。</footer>
 </section>
 </main>
 </div>
@@ -503,7 +546,7 @@ python3 scripts/06_workflow_ppt.py</pre>
       if (!en.isIntersecting) return;
       links.forEach(function (a) { a.classList.toggle('on', a.getAttribute('href') === '#' + en.target.id); });
     });
-  }, { rootMargin: '-20% 0px -70% 0px' });
+  }, { rootMargin: '-15% 0px -75% 0px' });
   document.querySelectorAll('main section').forEach(function (s) { io.observe(s); });
 })();
 </script>
